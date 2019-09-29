@@ -36,8 +36,9 @@ class ApplicationController < Sinatra::Base
   end
   
   post '/account' do
+    balance = current_user[:balance]
     if params[:deposit].to_i > 0
-      current_user.update(:balance => )[:balance] += params[:deposit].to_i
+      current_user.update(:balance => (balance + params[:deposit].to_i))
     end
     if params[:withdraw].to_i > 0 && params[:withdraw].to_i < current_user[:balance]
       current_user[:balance] -= params[:withdraw].to_i
