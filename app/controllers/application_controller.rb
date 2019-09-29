@@ -36,10 +36,10 @@ class ApplicationController < Sinatra::Base
   end
   
   post '/account' do
-    if !params[:deposit].empty?
+    if params[:deposit].to_i > 0
       current_user[:balance] += params[:deposit].to_i
     end
-    if !params[:withdraw].empty? && params[:withdraw].to_i > current_user.balance
+    if params[:withdraw].to_i > 0 && params[:withdraw].to_i > current_user.balance
       current_user[:balance] -= params[:withdraw].to_i
     end
     redirect '/account'
